@@ -1,3 +1,27 @@
+h1 {
+  font-size: 700% !important;
+}
+
+h2 {
+  font-size: 500% !important;
+}
+
+.giphy-embed {
+  z-index: -1000;
+}
+
+#picker {
+  display: none;
+}
+
+#story {
+  display: none;
+}
+
+.btn-primary {
+  font-size: 300% !important;
+}
+
 .container-left {
   width: 25%;
 }
@@ -6,8 +30,17 @@
   margin: 0px;
 }
 
+.clickbox {
+  opacity: .99;
+  z-index: 1000;
+  width: 331px;
+  height: 480px;
+}
+
 .container-fluid {
-  display: flex;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  justify-content: center;
 }
 
 /* Optional: Makes the sample page fill the window. */
