@@ -6,41 +6,62 @@ h2 {
   font-size: 500% !important;
 }
 
-.giphy-embed {
-  z-index: -1000;
+.giphy-embed, img {
+  pointer-events: none;
+  justify-content: center;
+  height: 120%;
+  /* margin: 3em; */
+  padding: 0em 0em 2em 0em;
 }
 
 #picker {
   display: none;
+  /* padding-top: 3em; */
+}
+
+#pickerRow {
+  padding: 8em;
 }
 
 #story {
   display: none;
 }
 
+.wordtype {
+  position: fixed;
+  width: 100%;
+  /* padding-bottom: 3em; */
+  z-index: 100;
+  background-color: white;
+  /* margin-bottom: 2em; */
+}
+
 .btn-primary {
   font-size: 300% !important;
 }
 
-.container-left {
-  width: 25%;
-}
-
 .container {
-  margin: 0px;
-}
-
-.clickbox {
-  opacity: .99;
-  z-index: 1000;
-  width: 331px;
-  height: 480px;
+  /* margin: 1em 1em 1em 1em; */
+  /* padding: 0em 1em 3em 1em; */
 }
 
 .container-fluid {
   /* display: flex; */
   /* flex-wrap: wrap; */
   justify-content: center;
+  padding-top: 3em;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+  z-index: 10
+}
+
+.container-fluid+.navbar+#wordtype {
+  padding-top: 120px;
 }
 
 /* Optional: Makes the sample page fill the window. */
