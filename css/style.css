@@ -9,9 +9,8 @@ h2 {
 .giphy-embed, img {
   pointer-events: none;
   justify-content: center;
-  height: 120%;
-  /* margin: 3em; */
-  padding: 0em 0em 2em 0em;
+  margin: 0 0 .5em 0;
+  padding: 0em eem 0em 0em;
 }
 
 #picker {
@@ -25,6 +24,11 @@ h2 {
 
 #story {
   display: none;
+  height: 80%;
+}
+
+#storyRow {
+  height: 80%;
 }
 
 .wordtype {
