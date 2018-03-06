@@ -10,16 +10,21 @@ h2 {
   pointer-events: none;
   justify-content: center;
   margin: 0 0 .5em 0;
-  padding: 0em eem 0em 0em;
+  padding: 0em 0em 0em 0em;
+  height: 400px;
 }
 
 #picker {
   display: none;
   /* padding-top: 3em; */
+  padding-left: 0px;
+  background-color: #81f6f3
 }
 
-#pickerRow {
-  padding: 8em;
+.pickerRow {
+  padding: 8em 0em 8em 0em;
+  display: none;
+  height: 400px;
 }
 
 #story {
