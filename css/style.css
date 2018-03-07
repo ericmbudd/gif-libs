@@ -17,7 +17,19 @@ h2 {
   width: 100%;
 }
 
+iframe {
+  min-width: 100%;
+  min-height: 100%
+}
+
 .gif-box {
+  justify-content: center;
+  margin: 0 0 .5em 0;
+  padding: 0em 0em 0em 0em;
+  height: 400px;
+}
+
+.gif-story-box {
   justify-content: center;
   margin: 0 0 .5em 0;
   padding: 0em 0em 0em 0em;
@@ -47,7 +59,6 @@ h2 {
 }
 
 .storyRow {
-  height: 100%;
   margin-bottom: 7em;
 }
 

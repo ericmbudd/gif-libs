@@ -23,9 +23,10 @@ $(document).ready(function() {
   // $('#picker').show('slow/400/fast', function() {});
   // $('#story').hide('slow/400/fast', function() {});
 
+
+
   // initial search term
   getSearchTerm(renderIndex)
-  buildPickerLayout(renderIndex)
 
   function getSearchTerm() {
     console.log("search on index " + renderIndex);
@@ -42,13 +43,18 @@ $(document).ready(function() {
       console.log("save exists");
 
       savedSearch = JSON.parse(localStorage.getItem(storyData[renderIndex].searchTerm))
-      console.log(savedSearch);
+      // console.log(savedSearch);
+      buildPickerLayout(renderIndex)
     } else {
       console.log("no save");
-      $.getJSON(url, function(data) {
-        console.log(data);
+      let promise = $.getJSON(url, function(data) {
+        // console.log(data);
         savedSearch = data;
         localStorage.setItem(storyData[renderIndex].searchTerm, JSON.stringify(data))
+      });
+
+      promise.done(function() {
+        buildPickerLayout(renderIndex)
       });
     }
   }
@@ -76,31 +82,6 @@ $(document).ready(function() {
 
     }
     renderIndex++
-    //
-    // for (let j = 4; j < 8; j++) {
-    //   let newIframe = document.createElement("iframe")
-    //   newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-    //   // newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url);
-    //   newIframe.setAttribute('frameBorder', '0');
-    //   newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-3')
-    //
-    //   // console.log("newGifsSet = " + newGifsSet);
-    //   console.log("newIframe = " + newIframe);
-    //
-    //   newRow.append(newIframe)
-    // }
-    // for (let j = 8; j < 12; j++) {
-    //   let newIframe = document.createElement("iframe")
-    //   newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-    //   // newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url);
-    //   newIframe.setAttribute('frameBorder', '0');
-    //   newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-3')
-    //
-    //   // console.log("newGifsSet = " + newGifsSet);
-    //   console.log("newIframe = " + newIframe);
-    //
-    //   newRow.append(newIframe)
-    // }
 
 
     // newGifsSet.append(newIframe)
@@ -125,10 +106,10 @@ $(document).ready(function() {
     console.log("clicked on picker, renderIndex =" + renderIndex);
     console.log("clicked on picker, screenIndex =" + screenIndex);
 
-    console.log(event);
+    // console.log(event);
     if (screenIndex > 0) {
       storyData[screenIndex - 1].lineGif = event.target.children[0].src
-      console.log(storyData[screenIndex - 1].lineGif);
+      // console.log(storyData[screenIndex - 1].lineGif);
     }
 
     if (screenIndex < storyData.length) {
@@ -146,7 +127,7 @@ $(document).ready(function() {
       // do next search/build
       if (renderIndex < storyData.length) {
         getSearchTerm(renderIndex)
-        buildPickerLayout(renderIndex)
+        // buildPickerLayout(renderIndex)
       }
     } else {
       toggleStory()
@@ -166,7 +147,7 @@ $(document).ready(function() {
 
 
   function buildStory() {
-    for (var i = 0; i < storyData.length; i++) {
+    for (let i = 0; i < storyData.length; i++) {
       let newRow = document.createElement("div")
       newRow.setAttribute('id', 'storyRow' + i);
       newRow.classList.add('row', 'storyRow')
@@ -178,6 +159,9 @@ $(document).ready(function() {
       newHeader.append(newText)
       newTextBlock.append(newHeader)
 
+      let newGifBlock = document.createElement("div")
+      newGifBlock.classList.add("col-xl-5", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "gif-story-box")
+
       let newIframe = document.createElement("iframe")
       // newIframe.setAttribute('src', 'https://giphy.com/embed/Q7Eezvahu2Hrq');
       newIframe.setAttribute('src', storyData[i].lineGif);
@@ -186,8 +170,10 @@ $(document).ready(function() {
       newIframe.setAttribute('frameBorder', '0');
       newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-5', 'align-top')
 
+      newGifBlock.append(newIframe)
+
       newRow.append(newTextBlock)
-      newRow.append(newIframe)
+      newRow.append(newGifBlock)
 
       $('#story').append(newRow)
     }
