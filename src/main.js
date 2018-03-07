@@ -16,11 +16,12 @@ $(document).ready(function() {
     {
       line: "Most people like to fish in streams, but I, in my laziness, like to fish in hurricanes.",
       searchTerm: "hurricanes"
-    }, {
+    },
+    {
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
     }, {
-      line: "Leaning back, I jokingly cast my fishing rod.",
+      line: "Feeling good, I jokingly cast my fishing rod.",
       searchTerm: "fishing rod"
     }, {
       line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
@@ -42,7 +43,7 @@ $(document).ready(function() {
       searchTerm: "anxious"
     }, {
       line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-      searchTerm: "butterfly"
+      searchTerm: "fall over"
     }, {
       line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
       searchTerm: "run away"
@@ -63,21 +64,21 @@ $(document).ready(function() {
   getSearchTerm(renderIndex)
 
   function getSearchTerm() {
-    console.log("search on index " + renderIndex);
+    // console.log("search on index " + renderIndex);
     let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
     let urlTail = '&limit=25&offset=0&rating=G&lang=en'
     let url = urlStem + storyData[renderIndex].searchTerm + urlTail
 
 
     // $("#image")[0].href = "";
-    console.log($('#pickerRow' + renderIndex));
+    // console.log($('#pickerRow' + renderIndex));
 
     if (localStorage.getItem(storyData[renderIndex].searchTerm) !== null) {
       console.log("save exists");
 
       savedSearch = JSON.parse(localStorage.getItem(storyData[renderIndex].searchTerm))
       // console.log(savedSearch);
-      buildPickerLayout(renderIndex)
+      buildPickerLayout()
     } else {
       console.log("no save");
       let promise = $.getJSON(url, function(data) {
@@ -87,13 +88,13 @@ $(document).ready(function() {
       });
 
       promise.done(function() {
-        buildPickerLayout(renderIndex)
+        buildPickerLayout()
       });
     }
   }
 
   function buildPickerLayout() {
-    console.log("build picker on index " + renderIndex);
+    // console.log("build picker on index " + renderIndex);
     let newRow = document.createElement("div")
     newRow.setAttribute('id', 'pickerRow' + renderIndex);
     newRow.classList.add('row', 'pickerRow')
@@ -121,7 +122,7 @@ $(document).ready(function() {
   }
 
 
-  function togglePicker() {
+  function togglePicker(event) {
     $('#initial').fadeOut('1000', function() {})
     setTimeout(function() {
       $('#picker').fadeIn('1000', function() {});
@@ -131,16 +132,14 @@ $(document).ready(function() {
     // $('#picker').show('5000', function() {});
     //   $('#picker').slideDown('5000', function() {})
     // }, 0);
-    showPickerRow({})
+    showPickerRow(event)
   }
 
   function showPickerRow(event) {
-    console.log("clicked on picker, renderIndex =" + renderIndex);
-    console.log("clicked on picker, screenIndex =" + screenIndex);
-
-
-
+    // console.log("clicked on picker, renderIndex =" + renderIndex);
+    // console.log("clicked on picker, screenIndex =" + screenIndex);
     // console.log(event);
+
     if (screenIndex > 0) {
       storyData[screenIndex - 1].lineGif = event.target.children[0].src
       // console.log(storyData[screenIndex - 1].lineGif);
@@ -158,9 +157,9 @@ $(document).ready(function() {
 
         let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
         if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
-          $('#pickWord').text('Pick an')
+          $('#pickWord').text('Pick')
         } else {
-          $('#pickWord').text('Pick a')
+          $('#pickWord').text('Pick')
         }
         $('#searchWord').text("'" + storyData[screenIndex].searchTerm + "'")
 
@@ -196,7 +195,7 @@ $(document).ready(function() {
       newRow.classList.add('row', 'storyRow')
 
       let newTextBlock = document.createElement("div")
-      newTextBlock.classList.add("col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
+      newTextBlock.classList.add("story-box", "col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
       let newHeader = document.createElement("h2")
       let newText = document.createTextNode(storyData[i].line)
       newHeader.append(newText)
@@ -211,7 +210,7 @@ $(document).ready(function() {
       // newIframe.setAttribute('width', '341');
       // newIframe.setAttribute('height', '480');
       newIframe.setAttribute('frameBorder', '0');
-      newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-5', 'align-top')
+      newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-5', 'align-middle')
 
       newGifBlock.append(newIframe)
 
@@ -223,7 +222,10 @@ $(document).ready(function() {
     // console.log("newRow = " + newRow);
   }
 
-  $('#create').click(togglePicker);
+  // $('#create').click(togglePicker);
+  $('#create').click(function(event) {
+    togglePicker(event)
+  })
   $('#picker').click(function(event) {
     showPickerRow(event)
   })
