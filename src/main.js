@@ -7,7 +7,7 @@ $(document).ready(function() {
   let savedSearch = {}
   let storyData = [{
       line: "Once upon a time, there was a beautiful knight named Darleen",
-      searchTerm: "knight"
+      searchTerm: "earth"
     },
     {
       line: "who, by his valiant vitality, saved the kingdom from the stupid",
@@ -31,9 +31,8 @@ $(document).ready(function() {
   function getSearchTerm() {
     console.log("search on index " + renderIndex);
     let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
-    let urlTail = '&limit=25&offset=0&rating=PG&lang=en'
+    let urlTail = '&limit=25&offset=0&rating=G&lang=en'
     let url = urlStem + storyData[renderIndex].searchTerm + urlTail
-    // let url = "https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q=knight&limit=25&offset=0&rating=PG&lang=en"
 
 
     // $("#image")[0].href = "";
@@ -79,7 +78,6 @@ $(document).ready(function() {
       // console.log("newIframe = " + newIframe);
       newContainer.append(newIframe)
       newRow.append(newContainer)
-
     }
     renderIndex++
 
@@ -106,6 +104,8 @@ $(document).ready(function() {
     console.log("clicked on picker, renderIndex =" + renderIndex);
     console.log("clicked on picker, screenIndex =" + screenIndex);
 
+
+
     // console.log(event);
     if (screenIndex > 0) {
       storyData[screenIndex - 1].lineGif = event.target.children[0].src
@@ -121,6 +121,15 @@ $(document).ready(function() {
           $('#pickerRow' + (screenIndex - 1)).remove()
         }
         $('#pickerRow' + screenIndex).slideDown('1000', function() {}).css('display', 'flex')
+
+        let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
+        if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
+          $('#pickWord').text('Pick an')
+        } else {
+          $('#pickWord').text('Pick a')
+        }
+        $('#searchWord').text("'" + storyData[screenIndex].searchTerm + "'")
+
         screenIndex++
       }, 500);
 
