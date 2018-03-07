@@ -17,40 +17,40 @@ $(document).ready(function() {
       line: "Most people like to fish in streams, but I, in my laziness, like to fish in hurricanes.",
       searchTerm: "hurricanes"
     },
-    {
-      line: "Standing timidly, I baited the hook with a slimy slug.",
-      searchTerm: "slimy slug"
-    }, {
-      line: "Feeling good, I jokingly cast my fishing rod.",
-      searchTerm: "fishing rod"
-    }, {
-      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-      searchTerm: "bored"
-    }, {
-      line: "when finally a fish caught my attention.",
-      searchTerm: "fish"
-    }, {
-      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
-      searchTerm: "straining"
-    }, {
-      line: "and reeled in my catch.",
-      searchTerm: "reeled in"
-    }, {
-      line: "And all of a sudden, lying before me was an angry bear.",
-      searchTerm: "angry bear"
-    }, {
-      line: "I was anxious.",
-      searchTerm: "anxious"
-    }, {
-      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-      searchTerm: "fall over"
-    }, {
-      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-      searchTerm: "run away"
-    }, {
-      line: "I don't know when I've been so happy.",
-      searchTerm: "happy"
-    }
+    // {
+    //   line: "Standing timidly, I baited the hook with a slimy slug.",
+    //   searchTerm: "slimy slug"
+    // }, {
+    //   line: "Feeling good, I jokingly cast my fishing rod.",
+    //   searchTerm: "fishing rod"
+    // }, {
+    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+    //   searchTerm: "bored"
+    // }, {
+    //   line: "when finally a fish caught my attention.",
+    //   searchTerm: "fish"
+    // }, {
+    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
+    //   searchTerm: "straining"
+    // }, {
+    //   line: "and reeled in my catch.",
+    //   searchTerm: "reeled in"
+    // }, {
+    //   line: "And all of a sudden, lying before me was an angry bear.",
+    //   searchTerm: "angry bear"
+    // }, {
+    //   line: "I was anxious.",
+    //   searchTerm: "anxious"
+    // }, {
+    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+    //   searchTerm: "fall over"
+    // }, {
+    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+    //   searchTerm: "run away"
+    // }, {
+    //   line: "I don't know when I've been so happy.",
+    //   searchTerm: "happy"
+    // }
 
   ]
   // debug to skip sequence
@@ -150,10 +150,10 @@ $(document).ready(function() {
         //   $('#pickerRow' + index).fadeIn('2000', function() {});
         // }, 2000);
         if (screenIndex > 0) {
-          $('#pickerRow' + (screenIndex - 1)).fadeOut('500', function() {})
+          $('#pickerRow' + (screenIndex - 1)).fadeOut('1000', function() {})
           $('#pickerRow' + (screenIndex - 1)).remove()
         }
-        $('#pickerRow' + screenIndex).slideDown('1000', function() {}).css('display', 'flex')
+        $('#pickerRow' + screenIndex).slideDown('2000', function() {}).css('display', 'flex')
 
         let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
         if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
@@ -164,7 +164,7 @@ $(document).ready(function() {
         $('#searchWord').text("'" + storyData[screenIndex].searchTerm + "'")
 
         screenIndex++
-      }, 500);
+      }, 0);
 
       // do next search/build
       if (renderIndex < storyData.length) {
@@ -221,6 +221,24 @@ $(document).ready(function() {
     }
     // console.log("newRow = " + newRow);
   }
+
+  /* Every time the window is scrolled ... */
+  $(window).scroll(function() {
+    /* Check the location of each desired element */
+    $('.gif-story-box').each(function(i) {
+      let bottom_of_object = $(this).offset().top + $(this).outerHeight() - 350;
+      let bottom_of_window = $(window).scrollTop() + $(window).height();
+
+      /* If the object is completely visible in the window, fade it it */
+      if (bottom_of_window > bottom_of_object) {
+        //$(this).animate({ 'opacity': '1'}, 500);
+        $(this).animate({
+          'opacity': '1'
+        }, 500);
+      }
+    });
+  });
+
 
   // $('#create').click(togglePicker);
   $('#create').click(function(event) {
