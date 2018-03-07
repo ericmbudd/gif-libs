@@ -6,17 +6,51 @@ $(document).ready(function() {
 
   let savedSearch = {}
   let storyData = [{
-      line: "Once upon a time, there was a beautiful knight named Darleen",
-      searchTerm: "earth"
+      line: "So I recently went fishing.",
+      searchTerm: "fishing"
     },
     {
-      line: "who, by his valiant vitality, saved the kingdom from the stupid",
-      searchTerm: "stupid"
+      line: "Fishing invariably makes me angry.",
+      searchTerm: "angry"
     },
     {
-      line: "dragon and condemned the princess in the nick of time. He rode his ghastly butterfly",
+      line: "Most people like to fish in streams, but I, in my laziness, like to fish in hurricanes.",
+      searchTerm: "hurricanes"
+    }, {
+      line: "Standing timidly, I baited the hook with a slimy slug.",
+      searchTerm: "slimy slug"
+    }, {
+      line: "Leaning back, I jokingly cast my fishing rod.",
+      searchTerm: "fishing rod"
+    }, {
+      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+      searchTerm: "bored"
+    }, {
+      line: "when finally a fish caught my attention.",
+      searchTerm: "fish"
+    }, {
+      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
+      searchTerm: "straining"
+    }, {
+      line: "and reeled in my catch.",
+      searchTerm: "reeled in"
+    }, {
+      line: "And all of a sudden, lying before me was an angry bear.",
+      searchTerm: "angry bear"
+    }, {
+      line: "I was anxious.",
+      searchTerm: "anxious"
+    }, {
+      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
       searchTerm: "butterfly"
+    }, {
+      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+      searchTerm: "run away"
+    }, {
+      line: "I don't know when I've been so happy.",
+      searchTerm: "happy"
     }
+
   ]
   // debug to skip sequence
   // $('#initial').hide('slow/400/fast', function() {});
