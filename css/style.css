@@ -1,5 +1,7 @@
 h1 {
   font-size: 700% !important;
+  margin-top: .2em;
+  margin-bottom: .2em;
 }
 
 h2 {
@@ -10,8 +12,20 @@ h2 {
   pointer-events: none;
   justify-content: center;
   margin: 0 0 .5em 0;
+  padding: 0em .5em 0em 0em;
+  height: 100%;
+  width: 100%;
+}
+
+.gif-box {
+  justify-content: center;
+  margin: 0 0 .5em 0;
   padding: 0em 0em 0em 0em;
   height: 400px;
+}
+
+.embed {
+  height: auto;
 }
 
 #picker {
@@ -24,7 +38,7 @@ h2 {
 .pickerRow {
   padding: 8em 0em 8em 0em;
   display: none;
-  height: 400px;
+  /* height: 400px; */
 }
 
 #story {
@@ -32,8 +46,9 @@ h2 {
   height: 80%;
 }
 
-#storyRow {
-  height: 80%;
+.storyRow {
+  height: 100%;
+  margin-bottom: 7em;
 }
 
 .wordtype {

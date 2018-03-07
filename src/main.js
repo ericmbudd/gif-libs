@@ -60,16 +60,19 @@ $(document).ready(function() {
     newRow.classList.add('row', 'pickerRow')
 
     for (let j = 0; j < 12; j++) {
+      let newContainer = document.createElement("div")
+      newContainer.classList.add('justify-content-center', 'col-xl-3', 'gif-box')
+
       let newIframe = document.createElement("iframe")
       newIframe.setAttribute('src', savedSearch.data[j].embed_url);
       // newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url);
       newIframe.setAttribute('frameBorder', '0');
-      newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-3')
+      newIframe.classList.add('giphy-embed', 'justify-content-center')
 
       // console.log("newGifsSet = " + newGifsSet);
       // console.log("newIframe = " + newIframe);
-
-      newRow.append(newIframe)
+      newContainer.append(newIframe)
+      newRow.append(newContainer)
 
     }
     renderIndex++
@@ -106,37 +109,47 @@ $(document).ready(function() {
 
 
   function togglePicker() {
-    $('#initial').fadeOut('500', function() {})
+    $('#initial').fadeOut('1000', function() {})
     setTimeout(function() {
-      $('#picker').fadeIn('500', function() {});
-    }, 500);
+      $('#picker').fadeIn('1000', function() {});
+    }, 0);
 
 
     // $('#picker').show('5000', function() {});
     //   $('#picker').slideDown('5000', function() {})
     // }, 0);
-    showPickerRow()
+    showPickerRow({})
   }
 
-  function showPickerRow() {
+  function showPickerRow(event) {
     console.log("clicked on picker, renderIndex =" + renderIndex);
     console.log("clicked on picker, screenIndex =" + screenIndex);
 
-    setTimeout(function() {
-      //   $('#pickerRow' + index).fadeIn('2000', function() {});
-      // }, 2000);
-      if (screenIndex > 0) {
-        $('#pickerRow' + (screenIndex - 1)).fadeOut('500', function() {})
-        $('#pickerRow' + (screenIndex - 1)).remove()
-      }
-      $('#pickerRow' + screenIndex).slideDown('5000', function() {})
-      screenIndex++
-    }, 0);
+    console.log(event);
+    if (screenIndex > 0) {
+      storyData[screenIndex - 1].lineGif = event.target.children[0].src
+      console.log(storyData[screenIndex - 1].lineGif);
+    }
 
-    // do next search/build
-    if (renderIndex < storyData.length) {
-      getSearchTerm(renderIndex)
-      buildPickerLayout(renderIndex)
+    if (screenIndex < storyData.length) {
+      setTimeout(function() {
+        //   $('#pickerRow' + index).fadeIn('2000', function() {});
+        // }, 2000);
+        if (screenIndex > 0) {
+          $('#pickerRow' + (screenIndex - 1)).fadeOut('500', function() {})
+          $('#pickerRow' + (screenIndex - 1)).remove()
+        }
+        $('#pickerRow' + screenIndex).slideDown('1000', function() {}).css('display', 'flex')
+        screenIndex++
+      }, 500);
+
+      // do next search/build
+      if (renderIndex < storyData.length) {
+        getSearchTerm(renderIndex)
+        buildPickerLayout(renderIndex)
+      }
+    } else {
+      toggleStory()
     }
   }
 
@@ -153,32 +166,38 @@ $(document).ready(function() {
 
 
   function buildStory() {
-    let newRow = document.createElement("div")
-    newRow.classList.add("col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
-    let newHeader = document.createElement("h2")
-    let newText = document.createTextNode("Once upon a time there was a beautiful KNIGHT...")
-    newHeader.append(newText)
-    newRow.append(newHeader)
+    for (var i = 0; i < storyData.length; i++) {
+      let newRow = document.createElement("div")
+      newRow.setAttribute('id', 'storyRow' + i);
+      newRow.classList.add('row', 'storyRow')
 
-    let newIframe = document.createElement("iframe")
-    // newIframe.setAttribute('src', 'https://giphy.com/embed/Q7Eezvahu2Hrq');
-    newIframe.setAttribute('src', savedSearch.data[0].embed_url);
-    // newIframe.setAttribute('width', '341');
-    // newIframe.setAttribute('height', '480');
-    newIframe.setAttribute('frameBorder', '0');
-    newIframe.classList.add('giphy-embed')
-    newIframe.classList.add('justify-content-center')
-    newIframe.classList.add('col-xl-5')
+      let newTextBlock = document.createElement("div")
+      newTextBlock.classList.add("col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
+      let newHeader = document.createElement("h2")
+      let newText = document.createTextNode(storyData[i].line)
+      newHeader.append(newText)
+      newTextBlock.append(newHeader)
 
-    $('#storyRow').append(newRow)
-    $('#storyRow').append(newIframe)
+      let newIframe = document.createElement("iframe")
+      // newIframe.setAttribute('src', 'https://giphy.com/embed/Q7Eezvahu2Hrq');
+      newIframe.setAttribute('src', storyData[i].lineGif);
+      // newIframe.setAttribute('width', '341');
+      // newIframe.setAttribute('height', '480');
+      newIframe.setAttribute('frameBorder', '0');
+      newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-5', 'align-top')
 
+      newRow.append(newTextBlock)
+      newRow.append(newIframe)
+
+      $('#story').append(newRow)
+    }
     // console.log("newRow = " + newRow);
   }
 
   $('#create').click(togglePicker);
-  $('#picker').click(function() {
-    showPickerRow();
+  $('#picker').click(function(event) {
+    showPickerRow(event)
   })
+
   // $('#picker').click(toggleStory)
 });
