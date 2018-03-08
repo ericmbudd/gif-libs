@@ -278,7 +278,7 @@ $(document).ready(function() {
         bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * .8
       } else {
         console.log("smaller");
-        bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 3 / 10
+        bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 1 / 10
       }
 
       let bottom_of_window = $(window).scrollTop() + $(window).height();
