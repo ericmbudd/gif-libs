@@ -14,45 +14,46 @@ $(document).ready(function() {
       searchTerm: "angry"
     },
     {
-      line: "Most people like to fish in streams, but I, in my laziness, like to fish in hurricanes.",
-      searchTerm: "hurricanes"
+      line: "Most people like to fish in streams, but I, in my laziness, like to fish in big puddles.",
+      searchTerm: "big puddles"
     },
-    // {
-    //   line: "Standing timidly, I baited the hook with a slimy slug.",
-    //   searchTerm: "slimy slug"
-    // }, {
-    //   line: "Feeling good, I jokingly cast my fishing rod.",
-    //   searchTerm: "fishing rod"
-    // }, {
-    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-    //   searchTerm: "bored"
-    // }, {
-    //   line: "when finally a fish caught my attention.",
-    //   searchTerm: "fish"
-    // }, {
-    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
-    //   searchTerm: "straining"
-    // }, {
-    //   line: "and reeled in my catch.",
-    //   searchTerm: "reeled in"
-    // }, {
-    //   line: "And all of a sudden, lying before me was an angry bear.",
-    //   searchTerm: "angry bear"
-    // }, {
-    //   line: "I was anxious.",
-    //   searchTerm: "anxious"
-    // }, {
-    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-    //   searchTerm: "fall over"
-    // }, {
-    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-    //   searchTerm: "run away"
-    // }, {
-    //   line: "I don't know when I've been so happy.",
-    //   searchTerm: "happy"
-    // }
-
+    {
+      line: "Standing timidly, I baited the hook with a slimy slug.",
+      searchTerm: "slimy slug"
+    }, {
+      line: "Feeling good, I jokingly cast my fishing rod.",
+      searchTerm: "fishing rod"
+    }, {
+      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+      searchTerm: "bored"
+    }, {
+      line: "when finally a fish caught my attention.",
+      searchTerm: "fish"
+    }, {
+      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
+      searchTerm: "straining"
+    }, {
+      line: "and reeled in my catch.",
+      searchTerm: "reeled in"
+    }, {
+      line: "And all of a sudden, lying before me was an angry bear.",
+      searchTerm: "angry bear"
+    }, {
+      line: "I was anxious.",
+      searchTerm: "anxious"
+    }, {
+      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+      searchTerm: "fall over"
+    }, {
+      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+      searchTerm: "run away"
+    }, {
+      line: "I don't know when I've been so happy.",
+      searchTerm: "happy"
+    }
   ]
+
+  console.log(storyData);
   // debug to skip sequence
   // $('#initial').hide('slow/400/fast', function() {});
   // $('#picker').show('slow/400/fast', function() {});
@@ -66,14 +67,15 @@ $(document).ready(function() {
   function getSearchTerm() {
     // console.log("search on index " + renderIndex);
     let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
-    let urlTail = '&limit=25&offset=0&rating=G&lang=en'
-    let url = urlStem + storyData[renderIndex].searchTerm + urlTail
-
+    let urlTail = '&limit=32&offset=0&rating=G&lang=en'
+    let url = urlStem + encodeURIComponent(storyData[renderIndex].searchTerm) + urlTail
+    console.log(url);
 
     // $("#image")[0].href = "";
     // console.log($('#pickerRow' + renderIndex));
 
-    if (localStorage.getItem(storyData[renderIndex].searchTerm) !== null) {
+    if (localStorage.getItem(storyData[renderIndex].searchTerm) !== null &&
+      savedSearch.length > 0) {
       console.log("save exists");
 
       savedSearch = JSON.parse(localStorage.getItem(storyData[renderIndex].searchTerm))
@@ -99,15 +101,20 @@ $(document).ready(function() {
     newRow.setAttribute('id', 'pickerRow' + renderIndex);
     newRow.classList.add('row', 'pickerRow')
 
-    for (let j = 0; j < 12; j++) {
+    console.log(savedSearch.data);
+    for (let j = 0; j < 32; j++) {
       let newContainer = document.createElement("div")
       newContainer.classList.add('justify-content-center', 'col-xl-3', 'gif-box')
 
-      let newIframe = document.createElement("iframe")
-      newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-      // newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url);
+      let newIframe = document.createElement("img")
+      // newIframe.setAttribute('src', savedSearch.data[j].embed_url);
+      newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width.webp);
+      newIframe.setAttribute('name', savedSearch.data[j].embed_url);
       newIframe.setAttribute('frameBorder', '0');
-      newIframe.classList.add('giphy-embed', 'justify-content-center')
+      newIframe.setAttribute('width', '100%');
+      newIframe.setAttribute('height', '100%');
+      // newIframe.setAttribute('style', 'position:absolute');
+      newIframe.classList.add('giphy-embed')
 
       // console.log("newGifsSet = " + newGifsSet);
       // console.log("newIframe = " + newIframe);
@@ -123,7 +130,6 @@ $(document).ready(function() {
 
 
   function togglePicker(event) {
-
     $('#picker').fadeIn('0', function() {});
     window.scrollTo(0, 0);
     // $('#top').gotoAnchor();
@@ -143,7 +149,8 @@ $(document).ready(function() {
     // console.log(event);
 
     if (screenIndex > 0) {
-      storyData[screenIndex - 1].lineGif = event.target.children[0].src
+      console.log(event);
+      storyData[screenIndex - 1].lineGif = event.target.children[0].name
       // console.log(storyData[screenIndex - 1].lineGif);
     }
 
@@ -157,7 +164,7 @@ $(document).ready(function() {
         }
         // $('#top').gotoAnchor();
         window.scrollTo(0, 0);
-        $('#pickerRow' + screenIndex).slideDown('1000', function() {}).css('display', 'flex')
+        $('#pickerRow' + screenIndex).fadeIn('1000', function() {}).css('display', 'flex')
 
         let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
         if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
@@ -183,10 +190,8 @@ $(document).ready(function() {
 
 
   function toggleStory() {
-    console.log("start debugger");
-
     buildStory()
-
+    console.log(storyData);
     // debugger;
     $('#story').fadeIn('0', function() {});
     // $('#storyRow0').fadeIn('5000', function() {});
