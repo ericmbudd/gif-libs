@@ -118,7 +118,7 @@ $(document).ready(function() {
     // console.log("build picker on index " + renderIndex);
     let newRow = document.createElement("div")
     newRow.setAttribute('id', 'pickerRow' + renderIndex);
-    newRow.classList.add('row', 'pickerRow', 'justify-content-center', 'col-lg-12', 'col-lg-8', 'col-md-8', 'col-sm-8', 'col-xs-8')
+    newRow.classList.add('row', 'pickerRow', 'justify-content-center', 'col-xl-12', 'col-lg-8', 'col-md-8', 'col-sm-8', 'col-xs-8')
 
     console.log(savedSearch.data);
     for (let j = 0; j < 32; j++) {
@@ -133,7 +133,7 @@ $(document).ready(function() {
       } else {
         newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width_small.url);
       }
-      newIframe.setAttribute('name', savedSearch.data[j].embed_url);
+      newIframe.setAttribute('name', savedSearch.data[j].images.original.url);
       newIframe.setAttribute('frameBorder', '0');
       newIframe.setAttribute('width', '100%');
       newIframe.setAttribute('height', '100%');
@@ -248,11 +248,11 @@ $(document).ready(function() {
       }
 
 
-      let newIframe = document.createElement("iframe")
+      let newIframe = document.createElement("img")
       // newIframe.setAttribute('src', 'https://giphy.com/embed/Q7Eezvahu2Hrq');
       newIframe.setAttribute('src', storyData[i].lineGif);
-      // newIframe.setAttribute('width', '341');
-      // newIframe.setAttribute('height', '480');
+      newIframe.setAttribute('width', '100%');
+      newIframe.setAttribute('height', '100%');
       newIframe.setAttribute('frameBorder', '0');
       newIframe.classList.add('giphy-embed', 'justify-content-center', 'col-xl-5', 'align-middle')
 
@@ -272,7 +272,15 @@ $(document).ready(function() {
   $(window).scroll(function() {
     /* Check the location of each desired element */
     $('.gif-story-box').each(function(i) {
-      let bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 2 / 3
+      let bottom_of_object;
+      if (window.matchMedia("(min-width: 1200px)").matches) {
+        console.log("1200px");
+        bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * .8
+      } else {
+        console.log("smaller");
+        bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 3 / 10
+      }
+
       let bottom_of_window = $(window).scrollTop() + $(window).height();
 
       /* If the object is completely visible in the window, fade it it */
@@ -280,7 +288,7 @@ $(document).ready(function() {
         //$(this).animate({ 'opacity': '1'}, 500);
         $(this).animate({
           'opacity': '1'
-        }, 1000);
+        }, 1300);
       }
     });
   });
