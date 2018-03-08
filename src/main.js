@@ -123,10 +123,12 @@ $(document).ready(function() {
 
 
   function togglePicker(event) {
-    $('#initial').fadeOut('1000', function() {})
-    setTimeout(function() {
-      $('#picker').fadeIn('1000', function() {});
-    }, 0);
+
+    $('#picker').fadeIn('0', function() {});
+    window.scrollTo(0, 0);
+    // $('#top').gotoAnchor();
+    $('#initial').fadeOut('2000', function() {})
+
 
 
     // $('#picker').show('5000', function() {});
@@ -153,7 +155,9 @@ $(document).ready(function() {
           $('#pickerRow' + (screenIndex - 1)).fadeOut('1000', function() {})
           $('#pickerRow' + (screenIndex - 1)).remove()
         }
-        $('#pickerRow' + screenIndex).slideDown('2000', function() {}).css('display', 'flex')
+        // $('#top').gotoAnchor();
+        window.scrollTo(0, 0);
+        $('#pickerRow' + screenIndex).slideDown('1000', function() {}).css('display', 'flex')
 
         let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
         if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
@@ -179,11 +183,16 @@ $(document).ready(function() {
 
 
   function toggleStory() {
+    console.log("start debugger");
+
     buildStory()
-    $('#picker').fadeOut('500', function() {});
-    setTimeout(function() {
-      $('#story').fadeIn('500', function() {});
-    }, 500);
+
+    // debugger;
+    $('#story').fadeIn('0', function() {});
+    // $('#storyRow0').fadeIn('5000', function() {});
+    // $('#top').gotoAnchor();
+    window.scrollTo(0, 0);
+    $('#picker').fadeOut('5000', function() {});
   }
 
 
@@ -202,7 +211,13 @@ $(document).ready(function() {
       newTextBlock.append(newHeader)
 
       let newGifBlock = document.createElement("div")
-      newGifBlock.classList.add("col-xl-5", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "gif-story-box")
+
+      if (i === 0) {
+        newGifBlock.classList.add("col-xl-5", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "gif-story-box-first")
+      } else {
+        newGifBlock.classList.add("col-xl-5", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12", "gif-story-box")
+      }
+
 
       let newIframe = document.createElement("iframe")
       // newIframe.setAttribute('src', 'https://giphy.com/embed/Q7Eezvahu2Hrq');
@@ -217,6 +232,8 @@ $(document).ready(function() {
       newRow.append(newTextBlock)
       newRow.append(newGifBlock)
 
+
+
       $('#story').append(newRow)
     }
     // console.log("newRow = " + newRow);
@@ -226,7 +243,7 @@ $(document).ready(function() {
   $(window).scroll(function() {
     /* Check the location of each desired element */
     $('.gif-story-box').each(function(i) {
-      let bottom_of_object = $(this).offset().top + $(this).outerHeight() - 350;
+      let bottom_of_object = $(this).offset().top + $(this).outerHeight() - 100;
       let bottom_of_window = $(window).scrollTop() + $(window).height();
 
       /* If the object is completely visible in the window, fade it it */
@@ -234,17 +251,22 @@ $(document).ready(function() {
         //$(this).animate({ 'opacity': '1'}, 500);
         $(this).animate({
           'opacity': '1'
-        }, 500);
+        }, 1000);
       }
     });
   });
 
+  $.fn.gotoAnchor = function(anchor) {
+    location.href = this.selector;
+  }
 
   // $('#create').click(togglePicker);
   $('#create').click(function(event) {
+    event.preventDefault()
     togglePicker(event)
   })
   $('#picker').click(function(event) {
+    event.preventDefault()
     showPickerRow(event)
   })
 

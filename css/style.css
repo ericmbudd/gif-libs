@@ -6,11 +6,11 @@ h1 {
 
 h2 {
   font-size: 500% !important;
-  /* position: relative;
+  position: relative;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
-  transform: translateY(-50%); */
+  transform: translateY(-50%);
 }
 
 .giphy-embed, img {
@@ -36,13 +36,21 @@ iframe {
 }
 
 .story-box {
-  padding-top: 100px;
+  /* padding-top: 100px; */
+}
+
+.gif-story-box-first {
+  justify-content: center;
+  margin: 0 0 0em 0;
+  padding: 0em 0em 0em 0em;
+  min-height: 800px;
+  opacity: 1;
 }
 
 .gif-story-box {
   justify-content: center;
   margin: 0 0 0em 0;
-  padding: 0em 0em 10em 0em;
+  padding: 0em 0em 0em 0em;
   min-height: 800px;
   opacity: 0;
 }
@@ -66,7 +74,7 @@ iframe {
 
 #story {
   display: none;
-  /* height: 80%; */
+  margin-top: -7em;
 }
 
 .storyRow {
