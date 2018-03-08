@@ -3,6 +3,24 @@ $(document).ready(function() {
   let renderIndex = 0;
   // the current user/gif pick index
   let screenIndex = 0;
+  let useWebP = false;
+
+  async function supportsWebp() {
+    if (!self.createImageBitmap) return false;
+
+    const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+    const blob = await fetch(webpData).then(r => r.blob());
+    return createImageBitmap(blob).then(() => true, () => false);
+  }
+
+  (async () => {
+    if (await supportsWebp()) {
+      useWebP = true
+    } else {
+      console.log('does not support');
+    }
+    getSearchTerm(renderIndex)
+  })();
 
   let savedSearch = {}
   let storyData = [{
@@ -20,37 +38,38 @@ $(document).ready(function() {
     {
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
-    }, {
-      line: "Feeling good, I jokingly cast my fishing rod.",
-      searchTerm: "fishing rod"
-    }, {
-      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-      searchTerm: "bored"
-    }, {
-      line: "when finally a fish caught my attention.",
-      searchTerm: "fish"
-    }, {
-      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of love was gone,",
-      searchTerm: "straining"
-    }, {
-      line: "and reeled in my catch.",
-      searchTerm: "reeled in"
-    }, {
-      line: "And all of a sudden, lying before me was an angry bear.",
-      searchTerm: "angry bear"
-    }, {
-      line: "I was anxious.",
-      searchTerm: "anxious"
-    }, {
-      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-      searchTerm: "fall over"
-    }, {
-      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-      searchTerm: "run away"
-    }, {
-      line: "I don't know when I've been so happy.",
-      searchTerm: "happy"
-    }
+    },
+    // {
+    //   line: "Feeling good, I jokingly cast my fishing rod.",
+    //   searchTerm: "fishing rod"
+    // }, {
+    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+    //   searchTerm: "bored"
+    // }, {
+    //   line: "when finally a fish caught my attention.",
+    //   searchTerm: "fish"
+    // }, {
+    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
+    //   searchTerm: "strength"
+    // }, {
+    //   line: "and reeled in my catch.",
+    //   searchTerm: "reeled in"
+    // }, {
+    //   line: "And all of a sudden, lying before me was an angry bear.",
+    //   searchTerm: "angry bear"
+    // }, {
+    //   line: "I was anxious.",
+    //   searchTerm: "anxious"
+    // }, {
+    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+    //   searchTerm: "fall over"
+    // }, {
+    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+    //   searchTerm: "run away"
+    // }, {
+    //   line: "I don't know when I've been so happy.",
+    //   searchTerm: "happy"
+    // }
   ]
 
   console.log(storyData);
@@ -62,12 +81,12 @@ $(document).ready(function() {
 
 
   // initial search term
-  getSearchTerm(renderIndex)
+
 
   function getSearchTerm() {
     // console.log("search on index " + renderIndex);
     let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
-    let urlTail = '&limit=32&offset=0&rating=G&lang=en'
+    let urlTail = '&limit=32&offset=0&rating=PG&lang=en'
     let url = urlStem + encodeURIComponent(storyData[renderIndex].searchTerm) + urlTail
     console.log(url);
 
@@ -99,16 +118,21 @@ $(document).ready(function() {
     // console.log("build picker on index " + renderIndex);
     let newRow = document.createElement("div")
     newRow.setAttribute('id', 'pickerRow' + renderIndex);
-    newRow.classList.add('row', 'pickerRow')
+    newRow.classList.add('row', 'pickerRow', 'justify-content-center', 'col-lg-12', 'col-lg-8', 'col-md-8', 'col-sm-8', 'col-xs-8')
 
     console.log(savedSearch.data);
     for (let j = 0; j < 32; j++) {
       let newContainer = document.createElement("div")
-      newContainer.classList.add('justify-content-center', 'col-xl-3', 'gif-box')
+      newContainer.classList.add('col-xl-3', 'gif-box')
 
       let newIframe = document.createElement("img")
       // newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-      newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width.webp);
+
+      if (useWebP === true) {
+        newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width.webp);
+      } else {
+        newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width_small.url);
+      }
       newIframe.setAttribute('name', savedSearch.data[j].embed_url);
       newIframe.setAttribute('frameBorder', '0');
       newIframe.setAttribute('width', '100%');
@@ -130,9 +154,9 @@ $(document).ready(function() {
 
 
   function togglePicker(event) {
-    $('#picker').fadeIn('0', function() {});
-    window.scrollTo(0, 0);
+    $('#picker').fadeIn('0', function() {}).css('display', 'flex');
     // $('#top').gotoAnchor();
+    window.scrollTo(0, 0)
     $('#initial').fadeOut('2000', function() {})
 
 
@@ -248,7 +272,7 @@ $(document).ready(function() {
   $(window).scroll(function() {
     /* Check the location of each desired element */
     $('.gif-story-box').each(function(i) {
-      let bottom_of_object = $(this).offset().top + $(this).outerHeight() - 100;
+      let bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 2 / 3
       let bottom_of_window = $(window).scrollTop() + $(window).height();
 
       /* If the object is completely visible in the window, fade it it */
