@@ -39,40 +39,40 @@ $(document).ready(function() {
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
     },
-    // {
-    //   line: "Feeling good, I jokingly cast my fishing rod.",
-    //   searchTerm: "fishing rod"
-    // }, {
-    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-    //   searchTerm: "bored"
-    // }, {
-    //   line: "when finally a fish caught my attention.",
-    //   searchTerm: "fish"
-    // }, {
-    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
-    //   searchTerm: "strength"
-    // }, {
-    //   line: "and reeled in my catch.",
-    //   searchTerm: "reeled in"
-    // }, {
-    //   line: "And all of a sudden, lying before me was an angry bear.",
-    //   searchTerm: "angry bear"
-    // }, {
-    //   line: "I was anxious.",
-    //   searchTerm: "anxious"
-    // }, {
-    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-    //   searchTerm: "fall over"
-    // }, {
-    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-    //   searchTerm: "run away"
-    // }, {
-    //   line: "I don't know when I've been so happy.",
-    //   searchTerm: "happy"
-    // }
+    {
+      line: "Feeling good, I jokingly cast my fishing rod.",
+      searchTerm: "fishing rod"
+    }, {
+      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+      searchTerm: "bored"
+    }, {
+      line: "when finally a fish caught my attention.",
+      searchTerm: "fish"
+    }, {
+      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
+      searchTerm: "strength"
+    }, {
+      line: "and reeled in my catch.",
+      searchTerm: "reeled in"
+    }, {
+      line: "And all of a sudden, lying before me was an angry bear.",
+      searchTerm: "angry bear"
+    }, {
+      line: "I was anxious.",
+      searchTerm: "anxious"
+    }, {
+      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+      searchTerm: "fall over"
+    }, {
+      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+      searchTerm: "run away"
+    }, {
+      line: "I don't know when I've been so happy.",
+      searchTerm: "happy"
+    }
   ]
 
-  console.log(storyData);
+  // console.log(storyData);
   // debug to skip sequence
   // $('#initial').hide('slow/400/fast', function() {});
   // $('#picker').show('slow/400/fast', function() {});
@@ -88,7 +88,7 @@ $(document).ready(function() {
     let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
     let urlTail = '&limit=32&offset=0&rating=PG&lang=en'
     let url = urlStem + encodeURIComponent(storyData[renderIndex].searchTerm) + urlTail
-    console.log(url);
+    // console.log(url);
 
     // $("#image")[0].href = "";
     // console.log($('#pickerRow' + renderIndex));
@@ -120,7 +120,7 @@ $(document).ready(function() {
     newRow.setAttribute('id', 'pickerRow' + renderIndex);
     newRow.classList.add('row', 'pickerRow', 'justify-content-center', 'col-xl-12', 'col-lg-8', 'col-md-8', 'col-sm-8', 'col-xs-8')
 
-    console.log(savedSearch.data);
+    // console.log(savedSearch.data);
     for (let j = 0; j < 32; j++) {
       let newContainer = document.createElement("div")
       newContainer.classList.add('col-xl-3', 'gif-box')
@@ -154,10 +154,12 @@ $(document).ready(function() {
 
 
   function togglePicker(event) {
-    $('#picker').fadeIn('0', function() {}).css('display', 'flex');
+    $('#navbar').fadeIn('0', function() {}).css('display', 'flex');
+
     // $('#top').gotoAnchor();
     window.scrollTo(0, 0)
     $('#initial').fadeOut('2000', function() {})
+    $('#picker').fadeIn('2000', function() {}).css('display', 'flex');
 
 
 
@@ -173,7 +175,7 @@ $(document).ready(function() {
     // console.log(event);
 
     if (screenIndex > 0) {
-      console.log(event);
+      // console.log(event);
       storyData[screenIndex - 1].lineGif = event.target.children[0].name
       // console.log(storyData[screenIndex - 1].lineGif);
     }
@@ -190,13 +192,13 @@ $(document).ready(function() {
         window.scrollTo(0, 0);
         $('#pickerRow' + screenIndex).fadeIn('1000', function() {}).css('display', 'flex')
 
-        let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
-        if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
-          $('#pickWord').text('Pick')
-        } else {
-          $('#pickWord').text('Pick')
-        }
-        $('#searchWord').text("'" + storyData[screenIndex].searchTerm + "'")
+        // let firstLetter = storyData[screenIndex].searchTerm[0].toLowerCase()
+        // if (firstLetter === 'a' || firstLetter === 'e' || firstLetter === 'i' || firstLetter === 'o' || firstLetter === 'u') {
+        //   $('#pickWord').text('Pick')
+        // } else {
+        //   $('#pickWord').text('Pick')
+        // }
+        $('#searchWord').text(storyData[screenIndex].searchTerm)
 
         screenIndex++
       }, 0);
@@ -215,7 +217,7 @@ $(document).ready(function() {
 
   function toggleStory() {
     buildStory()
-    console.log(storyData);
+    // console.log(storyData);
     // debugger;
     $('#story').fadeIn('0', function() {});
     // $('#storyRow0').fadeIn('5000', function() {});
@@ -233,7 +235,12 @@ $(document).ready(function() {
       newRow.classList.add('row', 'storyRow')
 
       let newTextBlock = document.createElement("div")
-      newTextBlock.classList.add("story-box", "col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
+      if (i === 0) {
+        newTextBlock.classList.add("story-box-first", "col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
+      } else {
+        newTextBlock.classList.add("story-box", "col-xl-7", "col-lg-12", "col-md-12", "col-sm-12", "col-xs-12")
+      }
+
       let newHeader = document.createElement("h2")
       let newText = document.createTextNode(storyData[i].line)
       newHeader.append(newText)
@@ -274,10 +281,10 @@ $(document).ready(function() {
     $('.gif-story-box').each(function(i) {
       let bottom_of_object;
       if (window.matchMedia("(min-width: 1200px)").matches) {
-        console.log("1200px");
+        // console.log("1200px");
         bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * .8
       } else {
-        console.log("smaller");
+        // console.log("smaller");
         bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 1 / 10
       }
 

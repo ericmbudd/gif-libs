@@ -9,9 +9,10 @@
 </head>
 
 <body>
-  <nav class="navbar  navbar-light bg-light text-center">
+  <nav id="navbar" class="navbar justify-content-center navbar-light bg-light text-center">
+    <img src="images/gifLibs.png" alt="logo" class="logo">
     <a class="navbar-brand" href="#">GIF Libs Stories</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler ml-auto p-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -45,11 +46,14 @@
     </div> -->
   </nav>
   <a id="top"></a>
-  <div id="initial" class="container-fluid text-center align-center col-xl-12 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-    <div class="row">
+  <div id="initial" class="container-fluid text-center align-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <div id="logoBox" class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>GIF Libs</h1>
+        <img src="images/gifLibs.png" alt="logo" class="logoBig"></img>
       </div>
+      <!-- <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>GIF Libs</h1>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -60,10 +64,12 @@
   </div>
   <div id="picker" class="container-fluid text-center align-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="wordtype">
-      <span>
-      <h2 id="pickWord" class="d-inline col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">Pick</h2>
-      <h2 id="searchWord" class="d-inline pl-0 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"></h2>
-      </span>
+      <div>
+        <h3 id="pickWord" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">PICK</h3>
+      </div>
+
+      <h2 id="searchWord" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"></h2>
+
     </div>
     <!-- gifs to pick from will be added here -->
   </div>
