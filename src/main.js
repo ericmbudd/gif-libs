@@ -289,29 +289,36 @@ $(document).ready(function() {
 
     $('#initialContainer').animate({
       'opacity': '0'
+    }, 1000);
+    $('#picker').animate({
+      'opacity': '0'
+    }, 0)
+    $('#picker').hide(0000, function() {})
+
+    $('#storyTitle').delay(0).show(1000)
+    $('#storyTitle').delay(1000).animate({
+      'opacity': '1'
     }, 1500);
 
 
-    $('#picker').animate({
+    $('#storyTitle').delay(2000).animate({
       'opacity': '0'
-    }, 1000);
+    }, 1500);
 
-    $('#picker').hide('0', function() {});
-    // $('#story').fadeIn('1000', function() {});
+    $('#storyTitle').hide(2000, function() {})
     $('#story').animate({
       'opacity': '1'
-    }, 0);
-
-
-    $('#initialContainer').delay(1000).animate({
+    }, 1000);
+    //
+    // $('#storyTitle').hide(2000, function() {})
+    $('#initialContainer').delay(0).animate({
       'opacity': '1'
-    }, 1250);
+    }, 0);
   }
 
 
 
   function buildStory() {
-
     storyData.sort(function(a, b) {
       return a.lineNum - b.lineNum
     });
