@@ -40,37 +40,37 @@ $(document).ready(function() {
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
     },
-    // {
-    //   line: "Feeling good, I jokingly cast my fishing rod.",
-    //   searchTerm: "fishing rod"
-    // }, {
-    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-    //   searchTerm: "bored"
-    // }, {
-    //   line: "when finally a fish caught my attention.",
-    //   searchTerm: "fish"
-    // }, {
-    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
-    //   searchTerm: "strength"
-    // }, {
-    //   line: "and reeled in my catch.",
-    //   searchTerm: "reeled in"
-    // }, {
-    //   line: "And all of a sudden, lying before me was an angry bear.",
-    //   searchTerm: "angry bear"
-    // }, {
-    //   line: "I was anxious.",
-    //   searchTerm: "anxious"
-    // }, {
-    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-    //   searchTerm: "fall over"
-    // }, {
-    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-    //   searchTerm: "run away"
-    // }, {
-    //   line: "I don't know when I've been so happy.",
-    //   searchTerm: "happy"
-    // }
+    {
+      line: "Feeling good, I jokingly cast my fishing rod.",
+      searchTerm: "fishing rod"
+    }, {
+      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+      searchTerm: "bored"
+    }, {
+      line: "when finally a fish caught my attention.",
+      searchTerm: "fish"
+    }, {
+      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
+      searchTerm: "strength"
+    }, {
+      line: "and reeled in my catch.",
+      searchTerm: "reeled in"
+    }, {
+      line: "And all of a sudden, lying before me was an angry bear.",
+      searchTerm: "angry bear"
+    }, {
+      line: "I was anxious.",
+      searchTerm: "anxious"
+    }, {
+      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+      searchTerm: "fall over"
+    }, {
+      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+      searchTerm: "run away"
+    }, {
+      line: "I don't know when I've been so happy.",
+      searchTerm: "happy"
+    }
   ]
 
   // console.log(storyData);
