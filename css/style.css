@@ -55,8 +55,8 @@ h3 {
 }
 
 @media (min-width: 1200px) {
-  img {
-    /* max-height: 300px */
+  .gif-box {
+    max-height: 16%;
   }
   #story {}
   h2 {

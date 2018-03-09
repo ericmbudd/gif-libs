@@ -4,6 +4,7 @@ $(document).ready(function() {
   // the current user/gif pick index
   let screenIndex = 0;
   let useWebP = false;
+  let cachedImages = []
 
   async function supportsWebp() {
     if (!self.createImageBitmap) return false;
@@ -19,7 +20,7 @@ $(document).ready(function() {
     } else {
       console.log('does not support');
     }
-    getSearchTerm(renderIndex)
+    getSearchTerm()
   })();
 
   let savedSearch = {}
@@ -93,17 +94,17 @@ $(document).ready(function() {
     // $("#image")[0].href = "";
     // console.log($('#pickerRow' + renderIndex));
 
-    if (localStorage.getItem(storyData[renderIndex].searchTerm) !== null &&
+    if (localStorage.getItem(storyData[renderIndex].searchTerm) !== null ||
       savedSearch.length > 0) {
       console.log("save exists");
 
       savedSearch = JSON.parse(localStorage.getItem(storyData[renderIndex].searchTerm))
-      // console.log(savedSearch);
+      console.log(savedSearch);
       buildPickerLayout()
     } else {
       console.log("no save");
       let promise = $.getJSON(url, function(data) {
-        // console.log(data);
+        console.log(data);
         savedSearch = data;
         localStorage.setItem(storyData[renderIndex].searchTerm, JSON.stringify(data))
       });
@@ -127,12 +128,16 @@ $(document).ready(function() {
 
       let newIframe = document.createElement("img")
       // newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-
-      if (useWebP === true) {
-        newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width.webp);
+      console.log(j);
+      console.log(typeof savedSearch.data[j].images.preview_webp);
+      if (useWebP === true && typeof savedSearch.data[j].images.preview_webp !== 'undefined') {
+        newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url)
+      } else if (typeof savedSearch.data[j].images.preview_gif !== 'undefined') {
+        newIframe.setAttribute('src', savedSearch.data[j].images.preview_gif.url);
       } else {
         newIframe.setAttribute('src', savedSearch.data[j].images.fixed_width_small.url);
       }
+
       newIframe.setAttribute('name', savedSearch.data[j].images.original.url);
       newIframe.setAttribute('frameBorder', '0');
       newIframe.setAttribute('width', '100%');
@@ -177,6 +182,12 @@ $(document).ready(function() {
     if (screenIndex > 0) {
       // console.log(event);
       storyData[screenIndex - 1].lineGif = event.target.children[0].name
+
+      // preload image
+      cachedImages[screenIndex - 1] = new Image();
+      cachedImages[screenIndex - 1].src = event.target.children[0].name
+
+
       // console.log(storyData[screenIndex - 1].lineGif);
     }
 
@@ -275,6 +286,10 @@ $(document).ready(function() {
     // console.log("newRow = " + newRow);
   }
 
+
+
+
+
   /* Every time the window is scrolled ... */
   $(window).scroll(function() {
     /* Check the location of each desired element */
@@ -299,10 +314,58 @@ $(document).ready(function() {
       }
     });
   });
+  //
+  //
+  // /* Every time the window is scrolled ... */
+  // $(window).scroll(function() {
+  //   /* Check the location of each desired element */
+  //   $('.gif-story-box').each(function(i) {
+  //     let top_of_object;
+  //     if (window.matchMedia("(min-width: 1200px)").matches) {
+  //       // console.log("1200px");
+  //       top_of_object = $(this).offset().bottom + ($(this).outerHeight()) * .8
+  //     } else {
+  //       // console.log("smaller");
+  //       top_of_object = $(this).offset().bottom + ($(this).outerHeight()) * 1 / 10
+  //     }
+  //
+  //     let top_of_window = $(window).scrollBottom() + $(window).height();
+  //
+  //     /* If the object is completely visible in the window, fade it it */
+  //     if (top_of_window > top_of_object) {
+  //       //$(this).animate({ 'opacity': '1'}, 500);
+  //       $(this).animate({
+  //         'opacity': '1'
+  //       }, 1300);
+  //     }
+  //   });
+  // });
+  //
+  //
+  // $(window).scroll(function() {
+  //   /* Check the location of each desired element */
+  //   $('.gif-story-box').each(function(i) {
+  //     let bottom_of_object;
+  //     if (window.matchMedia("(min-width: 1200px)").matches) {
+  //       // console.log("1200px");
+  //       bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * .8
+  //     } else {
+  //       // console.log("smaller");
+  //       bottom_of_object = $(this).offset().top + ($(this).outerHeight()) * 1 / 10
+  //     }
+  //
+  //     let bottom_of_window = $(window).scrollTop() + $(window).height();
+  //
+  //     /* If the object is completely visible in the window, fade it it */
+  //     if (bottom_of_window > bottom_of_object) {
+  //       //$(this).animate({ 'opacity': '1'}, 500);
+  //       $(this).closest('.storyRow').prev().animate({
+  //         'opacity': '0'
+  //       }, 1300);
+  //     }
+  //   });
+  // });
 
-  $.fn.gotoAnchor = function(anchor) {
-    location.href = this.selector;
-  }
 
   // $('#create').click(togglePicker);
   $('#create').click(function(event) {
@@ -316,3 +379,8 @@ $(document).ready(function() {
 
   // $('#picker').click(toggleStory)
 });
+
+
+// module.exports = {
+//   getSearchTerm,
+// }
