@@ -162,7 +162,7 @@ $(document).ready(function() {
     $('#navbar').fadeIn('0', function() {}).css('display', 'flex');
 
     // $('#top').gotoAnchor();
-    window.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
 
 
     $('#initial').animate({
@@ -175,6 +175,7 @@ $(document).ready(function() {
       'opacity': '1'
     }, 1000);
 
+    window.scrollTo(0, 0)
 
     // $('#picker').show('5000', function() {});
     //   $('#picker').slideDown('5000', function() {})
@@ -264,9 +265,10 @@ $(document).ready(function() {
       'opacity': '1'
     }, 0);
 
-    $('#initialContainer').animate({
+
+    $('#initialContainer').delay(1000).animate({
       'opacity': '1'
-    }, 1500);
+    }, 1250);
   }
 
 
