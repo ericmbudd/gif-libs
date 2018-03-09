@@ -5,6 +5,7 @@ $(document).ready(function() {
   let screenIndex = 0;
   let useWebP = false;
   let cachedImages = []
+  let shuffleOrder = []
 
   async function supportsWebp() {
     if (!self.createImageBitmap) return false;
@@ -25,53 +26,86 @@ $(document).ready(function() {
 
   let savedSearch = {}
   let storyData = [{
+      lineNum: 0,
       line: "So I recently went fishing.",
       searchTerm: "fishing"
     },
     {
+      lineNum: 1,
       line: "Fishing invariably makes me angry.",
       searchTerm: "angry"
     },
     {
+      lineNum: 2,
       line: "Most people like to fish in streams, but I, in my laziness, like to fish in big puddles.",
       searchTerm: "big puddles"
     },
     {
+      lineNum: 3,
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
     },
     {
+      lineNum: 4,
       line: "Feeling good, I jokingly cast my fishing rod.",
       searchTerm: "fishing rod"
     }, {
-      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+      lineNum: 5,
+      line: "I waited for a whole fortnight, jumping to relieve the my very bored self...",
       searchTerm: "bored"
     }, {
+      lineNum: 6,
       line: "when finally a fish caught my attention.",
       searchTerm: "fish"
     }, {
+      lineNum: 7,
       line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
       searchTerm: "strength"
     }, {
+      lineNum: 8,
       line: "and reeled in my catch.",
       searchTerm: "reeled in"
     }, {
+      lineNum: 9,
       line: "And all of a sudden, lying before me was an angry bear.",
       searchTerm: "angry bear"
     }, {
+      lineNum: 10,
       line: "I was anxious.",
       searchTerm: "anxious"
     }, {
+      lineNum: 11,
       line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
       searchTerm: "fall over"
     }, {
+      lineNum: 12,
       line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
       searchTerm: "run away"
     }, {
+      lineNum: 13,
       line: "I don't know when I've been so happy.",
       searchTerm: "happy"
     }
   ]
+
+
+
+  Array.prototype.shuffle = function() {
+    var i = this.length,
+      j, temp;
+    if (i == 0) return this;
+    while (--i) {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = this[i];
+      this[i] = this[j];
+      this[j] = temp;
+    }
+    return this;
+  }
+
+  storyData.shuffle()
+  console.log(storyData);
+
 
   // console.log(storyData);
   // debug to skip sequence
@@ -188,6 +222,9 @@ $(document).ready(function() {
     // console.log("clicked on picker, screenIndex =" + screenIndex);
     // console.log(event);
 
+    if (screenIndex < storyData.length)
+      $('#numPicked').text(screenIndex + 1)
+
     if (screenIndex > 0) {
       // console.log(event);
       storyData[screenIndex - 1].lineGif = event.target.children[0].name
@@ -274,6 +311,12 @@ $(document).ready(function() {
 
 
   function buildStory() {
+
+    storyData.sort(function(a, b) {
+      return a.lineNum - b.lineNum
+    });
+    console.log(storyData);
+
     for (let i = 0; i < storyData.length; i++) {
       let newRow = document.createElement("div")
       newRow.setAttribute('id', 'storyRow' + i);
