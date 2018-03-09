@@ -40,37 +40,37 @@ $(document).ready(function() {
       line: "Standing timidly, I baited the hook with a slimy slug.",
       searchTerm: "slimy slug"
     },
-    {
-      line: "Feeling good, I jokingly cast my fishing rod.",
-      searchTerm: "fishing rod"
-    }, {
-      line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
-      searchTerm: "bored"
-    }, {
-      line: "when finally a fish caught my attention.",
-      searchTerm: "fish"
-    }, {
-      line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
-      searchTerm: "strength"
-    }, {
-      line: "and reeled in my catch.",
-      searchTerm: "reeled in"
-    }, {
-      line: "And all of a sudden, lying before me was an angry bear.",
-      searchTerm: "angry bear"
-    }, {
-      line: "I was anxious.",
-      searchTerm: "anxious"
-    }, {
-      line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
-      searchTerm: "fall over"
-    }, {
-      line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
-      searchTerm: "run away"
-    }, {
-      line: "I don't know when I've been so happy.",
-      searchTerm: "happy"
-    }
+    // {
+    //   line: "Feeling good, I jokingly cast my fishing rod.",
+    //   searchTerm: "fishing rod"
+    // }, {
+    //   line: "I waited for a whole fortnight, jumping to relieve the my very bored self",
+    //   searchTerm: "bored"
+    // }, {
+    //   line: "when finally a fish caught my attention.",
+    //   searchTerm: "fish"
+    // }, {
+    //   line: "Merrily, I pulled on my fishing rod, straining until my last ounce of strength was gone,",
+    //   searchTerm: "strength"
+    // }, {
+    //   line: "and reeled in my catch.",
+    //   searchTerm: "reeled in"
+    // }, {
+    //   line: "And all of a sudden, lying before me was an angry bear.",
+    //   searchTerm: "angry bear"
+    // }, {
+    //   line: "I was anxious.",
+    //   searchTerm: "anxious"
+    // }, {
+    //   line: "But to my utmost surprise, when I was most scared, the bear started to choke and fall over.",
+    //   searchTerm: "fall over"
+    // }, {
+    //   line: "Politely, I dropped my fishing kite and began to run away to the woods, without looking back.",
+    //   searchTerm: "run away"
+    // }, {
+    //   line: "I don't know when I've been so happy.",
+    //   searchTerm: "happy"
+    // }
   ]
 
   // console.log(storyData);
@@ -99,12 +99,12 @@ $(document).ready(function() {
       console.log("save exists");
 
       savedSearch = JSON.parse(localStorage.getItem(storyData[renderIndex].searchTerm))
-      console.log(savedSearch);
+      // console.log(savedSearch);
       buildPickerLayout()
     } else {
       console.log("no save");
       let promise = $.getJSON(url, function(data) {
-        console.log(data);
+        // console.log(data);
         savedSearch = data;
         localStorage.setItem(storyData[renderIndex].searchTerm, JSON.stringify(data))
       });
@@ -128,8 +128,8 @@ $(document).ready(function() {
 
       let newIframe = document.createElement("img")
       // newIframe.setAttribute('src', savedSearch.data[j].embed_url);
-      console.log(j);
-      console.log(typeof savedSearch.data[j].images.preview_webp);
+      // console.log(j);
+      // console.log(typeof savedSearch.data[j].images.preview_webp);
       if (useWebP === true && typeof savedSearch.data[j].images.preview_webp !== 'undefined') {
         newIframe.setAttribute('src', savedSearch.data[j].images.preview_webp.url)
       } else if (typeof savedSearch.data[j].images.preview_gif !== 'undefined') {
@@ -163,9 +163,17 @@ $(document).ready(function() {
 
     // $('#top').gotoAnchor();
     window.scrollTo(0, 0)
-    $('#initial').fadeOut('2000', function() {})
-    $('#picker').fadeIn('2000', function() {}).css('display', 'flex');
 
+
+    $('#initial').animate({
+      'opacity': '0'
+    }, 300);
+    $('#initial').hide('0', function() {})
+
+    //$('#picker').fadeIn('2000', function() {}).css('display', 'flex');
+    $('#picker').animate({
+      'opacity': '1'
+    }, 1000);
 
 
     // $('#picker').show('5000', function() {});
@@ -230,11 +238,35 @@ $(document).ready(function() {
     buildStory()
     // console.log(storyData);
     // debugger;
-    $('#story').fadeIn('0', function() {});
+    // $('#story').fadeIn('1000', function() {});
     // $('#storyRow0').fadeIn('5000', function() {});
     // $('#top').gotoAnchor();
     window.scrollTo(0, 0);
-    $('#picker').fadeOut('5000', function() {});
+
+    // $('#picker').animate({
+    //   'opacity': '0'
+    // }, 1000);
+    // $('#initialContainer').fadeOut('5000', function() {});
+    // $('#initialContainer').fadeOut('5000', function() {});
+
+    $('#initialContainer').animate({
+      'opacity': '0'
+    }, 1500);
+
+
+    $('#picker').animate({
+      'opacity': '0'
+    }, 1000);
+
+    $('#picker').hide('0', function() {});
+    // $('#story').fadeIn('1000', function() {});
+    $('#story').animate({
+      'opacity': '1'
+    }, 0);
+
+    $('#initialContainer').animate({
+      'opacity': '1'
+    }, 1500);
   }
 
 

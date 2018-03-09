@@ -42,6 +42,12 @@ h3 {
 
 #initial {
   z-index: 10;
+  padding-top: 3em;
+  padding-bottom: 5em;
+}
+
+#initialContainer {
+  background-color: white;
 }
 
 .giphy-embed {
@@ -64,6 +70,9 @@ h3 {
   }
   .storyRow {
     margin-bottom: 20%;
+  }
+  #initial {
+    padding-top: 3em;
   }
 }
 
@@ -105,7 +114,8 @@ h3 {
 }
 
 #picker {
-  display: none;
+  display: flex;
+  opacity: 0;
   padding-top: 4em;
   padding-left: 0px;
   z-index: 1;
@@ -120,8 +130,15 @@ h3 {
 }
 
 #story {
-  display: none;
+  opacity: 0;
+  z-index: 0;
+  display: block;
   /* margin-top: -7em; */
+}
+
+#storyCover {
+  background-color: black;
+  z-index: 100;
 }
 
 .wordtype {
@@ -157,10 +174,6 @@ h3 {
   top: 0;
   overflow: hidden;
   z-index: 10
-}
-
-.container-fluid+.navbar+#wordtype {
-  /* padding-top: 120px; */
 }
 
 /* Optional: Makes the sample page fill the window. */
