@@ -92,16 +92,18 @@ h3 {
 
 .story-box {
   /* padding-top: 100px; */
+  padding-left: 4em;
 }
 
 .story-box-first {
   /* padding-top: 100px; */
   margin-top: 10%;
+  padding-left: 4em;
 }
 
 .gif-story-box-first {
   justify-content: center;
-  padding: 0em 0em 0em 0em;
+  padding: 0em 1em 0em 0em;
   /* min-height: 800px; */
   opacity: 1;
   margin-top: 10%;
@@ -110,7 +112,7 @@ h3 {
 .gif-story-box {
   justify-content: center;
   margin: 0 0 0em 0;
-  padding: 0em 0em 0em 0em;
+  padding: 0em 1em 0em 0em;
   /* min-height: 800px; */
   opacity: 0;
 }

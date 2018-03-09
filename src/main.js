@@ -330,6 +330,7 @@ $(document).ready(function() {
       }
 
       let newHeader = document.createElement("h2")
+      newHeader.classList.add("text-left")
       let newText = document.createTextNode(storyData[i].line)
       newHeader.append(newText)
       newTextBlock.append(newHeader)
