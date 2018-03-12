@@ -1,0 +1,33 @@
+
+{
+  "name": "gif-libs",
+  "version": "1.0.0",
+  "description": "testing",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "mocha": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericmbudd/gif-libs.git"
+  },
+  "keywords": [
+    "gif",
+    "libs"
+  ],
+  "author": "ericmbudd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericmbudd/gif-libs/issues"
+  },
+  "homepage": "https://github.com/ericmbudd/gif-libs#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.6.2",
+    "mocha": "^5.0.4"
+  }
+}
