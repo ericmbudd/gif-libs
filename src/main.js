@@ -122,7 +122,7 @@ storyData.shuffle()
 
 
 function getSearchTerm() {
-  // console.log("search on index " + renderIndex);
+  // search Giphy API for url, then run build picker layout
   let urlStem = 'https://api.giphy.com/v1/gifs/search?api_key=CTnSxefMIGBG1JxWvBr6zVvKSLu7FQAw&q='
   let urlTail = '&limit=32&offset=0&rating=PG&lang=en'
   let url = urlStem + encodeURIComponent(storyData[renderIndex].searchTerm) + urlTail
@@ -149,12 +149,12 @@ function getSearchTerm() {
 }
 
 function buildPickerLayout() {
-  // console.log("build picker on index " + renderIndex);
+  // take stored data and lay out in new picker page
   let newRow = document.createElement("div")
   newRow.setAttribute('id', 'pickerRow' + renderIndex);
   newRow.classList.add('row', 'pickerRow', 'justify-content-center', 'col-xl-12', 'col-lg-8', 'col-md-8', 'col-sm-8', 'col-xs-8')
 
-  // console.log(savedSearch.data);
+  // loop through gif links to build
   for (let j = 0; j < 32; j++) {
     let newContainer = document.createElement("div")
     newContainer.classList.add('col-xl-3', 'gif-box')
@@ -177,6 +177,7 @@ function buildPickerLayout() {
     newContainer.append(newIframe)
     newRow.append(newContainer)
   }
+  // render complete so increment index
   renderIndex++
 
   $('#picker').append(newRow)
@@ -184,6 +185,7 @@ function buildPickerLayout() {
 
 
 function togglePicker(event) {
+  // fade out initial screen, then show picker window, reset window scroll position
   $('#navbar').fadeIn('0', function() {}).css('display', 'flex');
 
   $('#initial').animate({
@@ -205,9 +207,6 @@ function togglePicker(event) {
 }
 
 function showPickerRow(event) {
-  // console.log("clicked on picker, renderIndex =" + renderIndex);
-  // console.log("clicked on picker, screenIndex =" + screenIndex);
-  // console.log(event);
 
   if (screenIndex < storyData.length)
     $('#numPicked').text(screenIndex + 1)
@@ -260,19 +259,10 @@ function showPickerRow(event) {
 
 
 function toggleStory() {
-  buildStory()
-  // console.log(storyData);
-  // debugger;
-  // $('#story').fadeIn('1000', function() {});
-  // $('#storyRow0').fadeIn('5000', function() {});
-  // $('#top').gotoAnchor();
-  window.scrollTo(0, 0);
+  // fade out initial screen, hide picker window, reset window scroll position, show story window
 
-  // $('#picker').animate({
-  //   'opacity': '0'
-  // }, 1000);
-  // $('#initialContainer').fadeOut('5000', function() {});
-  // $('#initialContainer').fadeOut('5000', function() {});
+  buildStory()
+  window.scrollTo(0, 0);
 
   $('#initialContainer').animate({
     'opacity': '0'
@@ -311,6 +301,7 @@ function buildStory() {
   });
   console.log(storyData);
 
+  // loop through all lines of story and build
   for (let i = 0; i < storyData.length; i++) {
     let newRow = document.createElement("div")
     newRow.setAttribute('id', 'storyRow' + i);
@@ -351,18 +342,13 @@ function buildStory() {
     newRow.append(newTextBlock)
     newRow.append(newGifBlock)
 
-
-
     $('#story').append(newRow)
   }
   // console.log("newRow = " + newRow);
 }
 
 
-
-
-
-/* Every time the window is scrolled ... */
+// window scroll fadein function
 $(window).scroll(function() {
   /* Check the location of each desired element */
   $('.gif-story-box').each(function(i) {
